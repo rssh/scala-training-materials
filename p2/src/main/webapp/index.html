@@ -1,0 +1,81 @@
+<html> 
+ <head>
+   <link id="term-styles" href="static/jcubic/css/jquery.terminal.css" rel="stylesheet"  type="text/css" />
+   <script src="static/jquery/js/jquery-1.6.4.min.js"></script>
+   <script src="static/jcubic/js/jquery.mousewheel-min.js"></script>
+   <script src="static/jcubic/js/jquery.terminal-0.4.1.min.js"></script>
+  <script type="text/javascript">
+//<![CDATA[
+var isLogged=false;
+var pageTerminal=null;
+$(function() {
+ $('#divterm').terminal(function(command, term) {
+    if (command==''||command=='echo') return false;
+    var echo=command.match('echo\\s+(.*)');
+    if (echo!=null) {
+      term.echo(echo[1]);
+      return false;
+    } 
+    jQuery.ajax("console/json", {
+                   type: 'POST',
+                   data: {
+                     op: command
+                   },
+                   dataType: 'json',
+                   success: function(data,textStatus,jqXHR) {
+                                 var prefix = null;
+                                 if (data==null || typeof(data)=='undefined') {
+                                    term.echo("[[;#FF0000;]undefined call result]");
+                                 } else {
+                                   var r = data["r"];
+                                   if (r==null || (typeof(r)=='undefined')) {
+                                      prefix="[[;#FF0000;]";
+                                   } else if (r) {
+                                      prefix="[[;#00FFFF;]";
+                                   } else {
+                                      prefix="[[;#FFFF00;]";
+                                   }
+                                   var message = data['message'];
+                                   if (message==null || typeof(message)=='undefined') {
+                                      message='NO DATA';
+                                   }
+                                   term.echo(prefix+message+"]");
+                                 }
+                   },
+                   error: function(jqXHR, textStatus, errorThrown) {
+                                term.echo("[[;#FF0000;]"+textStatus+':'+errorThrown+"]");
+                   }
+                });
+ }, 
+ { prompt: '$',
+   name: 'console' ,
+   greetings: false,
+   login: function(login,password,callback) {
+      if (login=='qqq' && password=='qqq') {
+         callback('token');
+      } else {
+         callback(false);
+      }
+   },
+   height: $(window).height()*0.95,
+   onInit: function(terminal) {
+     pageTerminal=terminal;
+   }
+ });
+ $(window).bind('resize',function() { 
+                var h = $(window).height();
+                var w = $(window).width();
+                //$('#divterm').height(h);
+                if (pageTerminal!=null) {
+                    pageTerminal.resize(w*0.95,h*0.95);
+                }
+               } ); 
+});
+//]]>
+  </script>
+ </head>
+<body>
+ <div id='divterm' style="width:100%;margin:0 auto;" >
+ </div>
+</body>
+</html>
