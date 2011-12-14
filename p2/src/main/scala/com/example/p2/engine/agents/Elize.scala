@@ -14,18 +14,20 @@ object Elize extends TalkAgent {
 
   final val name = { "elize" }
   
-  def answer(askingName:String, message:String):String =
+  def answer(askingName:String, optMessage:Option[String]):Option[String] =
   {
+   optMessage.map { message => 
     for(p <- matches) {
       p._1 findFirstMatchIn message match {
         case Some(m) =>  var r = Random.nextInt();
                          if (r < 0) r = -r;
                          val tmpl = p._2.toIndexedSeq(r % p._2.length)
-                         return tmpl.replaceAll("%1",m.group(1));
+                         return Some(tmpl.replaceAll("%1",m.group(1)));
         case None => /* do nothing */ 
       }
     }
-    return "Hmm, nothing interesting in you words found";
+    return Some("Hmm, nothing interesting in you words found");
+   }
   }
   
   val matches:List[(Regex,List[String])]=List(

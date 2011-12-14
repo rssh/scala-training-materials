@@ -7,6 +7,7 @@ object YesSir extends TalkAgent
   
   def name="tom"
   
-  def answer(askingName:String, message:String):String = "yes, sir";
+  def answer(askingName:String, optMessage:Option[String]):Option[String] 
+           = optMessage map { x => "yes, sir" };
 
 }

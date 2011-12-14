@@ -18,7 +18,7 @@ object TalkEngine extends SimpleTalkAgentRegistry(
      {  
       add(Elize);
       add(YesSir);
-      add(new AllMessageAgent(this))
+      add(new AllMessagesAgent(this))
       log("TalkEngine:Initialization finished");
       true;
      }

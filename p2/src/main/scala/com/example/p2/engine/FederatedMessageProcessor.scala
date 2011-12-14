@@ -4,11 +4,14 @@ trait FederatedMessageProcessor {
 
   this: TalkAgentRegistry =>
     
-  def process(askingName: String, agentName:String, message:String):String =
-  {    
+  def process(askingName: String, agentName:String, optMessage:Option[String]):Option[String] =
+  { 
+    for(message <- optMessage; talkAgent <- find(askingName)) {
+       if (talkAgent.isHuman) talkAgent.addSentence(message);
+    }  
     find(agentName) match {
-      case Some(talkAgent) => talkAgent.answer(askingName, message);
-      case None => "Sorry, agent "+agentName+" is not found";
+      case Some(talkAgent) => talkAgent.answer(askingName, optMessage);
+      case None => Some("Sorry, agent "+agentName+" is not found");
     }
   }
   
@@ -30,10 +33,10 @@ trait LoggingMessageProcessor extends FederatedMessageProcessor
 
   this: TalkAgentRegistry with Logged =>
   
-   override def process(askingName: String, agentName:String, message:String):String =
+   override def process(askingName: String, agentName:String, optMessage:Option[String]):Option[String] =
    {
-      log("%s -> %s : %s".format(askingName, agentName, message))  
-      val retval = super.process(askingName, agentName, message);
+      log("%s -> %s : %s".format(askingName, agentName, optMessage.getOrElse("")))  
+      val retval = super.process(askingName, agentName, optMessage);
       log("%s <- %s : %s".format(askingName, agentName, retval));
       retval
    }

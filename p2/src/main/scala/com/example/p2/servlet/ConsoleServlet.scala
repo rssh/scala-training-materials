@@ -75,15 +75,16 @@ class ConsoleServlet extends HttpServlet
           val login = ologin.asInstanceOf[String]
           val agentName = req.getSession().getAttribute("agentName")
           var response = if (agentName eq null) {
-                            TalkEngine.chooseAgent(login, message) match {
+                            Some(TalkEngine.chooseAgent(login, message) match {
                               case Left(x) => x
                               case Right(x) => req.getSession().setAttribute("agentName",x);
                                                x
-                            }
+                            })
                          } else {
-                            TalkEngine.process(login,agentName.asInstanceOf[String],message)                           
+                            TalkEngine.process(login,agentName.asInstanceOf[String],
+                                                if (message.isEmpty()) None else Some(message))                           
                          }
-          resp.getWriter().print("{ \"message\": \""+JSONFormat.quoteString(response)+"\" }");
+          resp.getWriter().print("{ \"message\": \""+JSONFormat.quoteString(response.getOrElse(""))+"\" }");
         }
     
     
