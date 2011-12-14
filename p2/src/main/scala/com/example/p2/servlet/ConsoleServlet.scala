@@ -50,7 +50,8 @@ class ConsoleServlet extends HttpServlet
 
          req.getSession(true).putValue("login",login);
          req.getSession(true).putValue("token",token);
-         
+
+         TalkEngine.initialized;
          val newAgent = new HumanAgent(login);
          TalkEngine.add(newAgent);
        

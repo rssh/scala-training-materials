@@ -14,11 +14,14 @@ object TalkEngine extends SimpleTalkAgentRegistry(
                        with LogbackLogged
 {
 
-     add(Elize);
-     add(YesSir);
-     add(new AllMessageAgent(this))
-     log("TalkEngine:Initialization finished");
-     
+     lazy val initialized: Boolean =
+     {  
+      add(Elize);
+      add(YesSir);
+      add(new AllMessageAgent(this))
+      log("TalkEngine:Initialization finished");
+      true;
+     }
      
      override val logger = LoggerFactory.getLogger(this.getClass);
 }
