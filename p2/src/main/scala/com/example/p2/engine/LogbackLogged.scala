@@ -1,13 +1,11 @@
 package com.example.p2.engine
 
-package com.example.p2.engine;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-trait LogbackLogged {
+trait LogbackLogged extends Logged {
 
-	def log(message:String):Unit = logger.info(message);
+	def log(message:String):Unit = logger.warn("lb:"+message);
 	
 	def logger: Logger;
 }

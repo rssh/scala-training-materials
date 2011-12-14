@@ -1,6 +1,9 @@
 package com.example.p2.servlet;
 
+
 import com.example.p2.engine._;
+import _root_.com.example.p2.engine.agents._;
+
 
 import javax.servlet._;
 import javax.servlet.http._;
@@ -47,6 +50,9 @@ class ConsoleServlet extends HttpServlet
 
          req.getSession(true).putValue("login",login);
          req.getSession(true).putValue("token",token);
+         
+         val newAgent = new HumanAgent(login);
+         TalkEngine.add(newAgent);
        
          resp.getWriter().print("{ \"result\":true, \"auth_token\": \"%s\" }".format(token)); 
        }

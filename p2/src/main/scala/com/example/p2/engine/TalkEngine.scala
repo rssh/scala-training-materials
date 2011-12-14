@@ -1,14 +1,24 @@
 package com.example.p2.engine
 
+import org.slf4j._;
+import scala.collection.mutable.ConcurrentMap
+import java.util.concurrent.{ ConcurrentHashMap => JavaConcurrentHashMap }
+import scala.collection.JavaConversions._;
+
 import agents._;
 
 object TalkEngine extends SimpleTalkAgentRegistry(
-                             Map("elize" -> Elize,
-                                 "tom" -> YesSir)
+                             new JavaConcurrentHashMap[String,TalkAgent]()
                           )
-                       with FederatedMessageProcessor 
-                       with ConsoleLogged
+                       with LoggingMessageProcessor 
+                       with LogbackLogged
 {
 
+     add(Elize);
+     add(YesSir);
+     add(new AllMessageAgent(this))
+     log("TalkEngine:Initialization finished");
      
+     
+     override val logger = LoggerFactory.getLogger(this.getClass);
 }

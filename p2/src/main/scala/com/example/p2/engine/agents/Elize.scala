@@ -12,7 +12,7 @@ import scala.util.Random
  */   
 object Elize extends TalkAgent {
 
-  def name = "elize"
+  final val name = { "elize" }
   
   def answer(askingName:String, message:String):String =
   {
@@ -28,14 +28,14 @@ object Elize extends TalkAgent {
     return "Hmm, nothing interesting in you words found";
   }
   
-  val matches:List[Pair[Regex,List[String]]]=List(
+  val matches:List[(Regex,List[String])]=List(
        "I need (.*)".r -> List(
                             "Why do you need %1?",
                             "Would it really help you to get %1?",
                             "Are you sure you need %1?"
                           ),
                    
-        """Why don't you ([^\?]*)\?""".r -> List(
+        """Why don't " you ([^\?]*)\?""".r -> List(
                              "Do you really think I don't %1?",
                              "Perhaps eventually I will %1.",
                              "Do you really want me to %1?"

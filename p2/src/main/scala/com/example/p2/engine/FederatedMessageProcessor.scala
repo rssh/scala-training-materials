@@ -14,12 +14,13 @@ trait FederatedMessageProcessor {
   
   def chooseAgent(askingName: String, message:String):Either[String,String] =
   {
+    //log("TalkEngine:chooseAgent");
     for (name <- allNames) {
         if (message.equals(name)) {
             return Right(name);
         } 
     }
-    Left("please, choose one of interlocutors to speak from "+allNames.toSeq.mkString(","));
+    Left("please, choose one of interlocutors to speak from: "+allNames.toSeq.mkString(","));
   }
  
 }
