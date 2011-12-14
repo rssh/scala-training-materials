@@ -19,7 +19,8 @@ $(function() {
     jQuery.ajax("console/json", {
                    type: 'POST',
                    data: {
-                     op: command
+                     op: 'command',
+                     message: command
                    },
                    dataType: 'json',
                    success: function(data,textStatus,jqXHR) {
@@ -51,11 +52,32 @@ $(function() {
    name: 'console' ,
    greetings: false,
    login: function(login,password,callback) {
-      if (login=='qqq' && password=='qqq') {
-         callback('token');
-      } else {
-         callback(false);
-      }
+    jQuery.ajax("console/json", {
+                   type: 'POST',
+                   data: {
+                     op: 'login',
+                     'login': login,
+                     'password': password
+                   },
+                   dataType: 'json',
+                   success: function(data,textStatus,jqXHR) {
+                      if (data==null || typeof(data)=='undefined') {
+                         callback(false);
+                      } else {
+                         if (data['result']!=null) {
+                           result=data['result'];
+                           if (!result) {
+                             callback(false);
+                           } else {
+                             callback(data['auth_token']);
+                           }
+                         }
+                      }
+                   },
+                   error: function(jqXHR, textStatus, errorThrown) {
+                                term.echo("[[;#FF0000;]"+textStatus+':'+errorThrown+"]");
+                   }
+             });
    },
    height: $(window).height()*0.95,
    onInit: function(terminal) {

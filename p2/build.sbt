@@ -13,3 +13,4 @@ libraryDependencies += "org.eclipse.jetty" % "jetty-webapp" % "8.0.4.v20111024" 
 
 libraryDependencies += "javax.servlet" % "javax.servlet-api" % "3.0.1" % "provided"
 
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.0"
