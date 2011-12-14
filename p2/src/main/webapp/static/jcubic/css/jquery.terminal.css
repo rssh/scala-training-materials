@@ -26,9 +26,11 @@
 .terminal, .terminal .terminal-output, .terminal .terminal-output div,
 .terminal .terminal-output div div, .cmd, .terminal .cmd span, .terminal .cmd div {
     font-family: monospace;
-    color: #aaa;
-    background-color: #000;
-    font-size: 12px;
+    /* color: #ffffff; */
+    color: black; 
+    /* background-color: #000; */
+    background-color: white; 
+    font-size: 18px;
 }
 .terminal .cmd span {
     float: left;
