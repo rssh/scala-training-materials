@@ -10,12 +10,12 @@ var isLogged=false;
 var pageTerminal=null;
 $(function() {
  $('#divterm').terminal(function(command, term) {
-    if (command==''||command=='echo') return false;
+    /*if (command==''||command=='echo') return false;
     var echo=command.match('echo\\s+(.*)');
     if (echo!=null) {
       term.echo(echo[1]);
       return false;
-    } 
+    }*/ 
     jQuery.ajax("console/json", {
                    type: 'POST',
                    data: {
@@ -40,7 +40,9 @@ $(function() {
                                    if (message==null || typeof(message)=='undefined') {
                                       message='NO DATA';
                                    }
-                                   term.echo(prefix+message+"]");
+                                   if (message!='') {
+                                     term.echo(prefix+message+"]");
+                                   }
                                  }
                    },
                    error: function(jqXHR, textStatus, errorThrown) {

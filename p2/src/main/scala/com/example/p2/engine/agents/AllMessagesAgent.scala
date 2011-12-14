@@ -39,8 +39,8 @@ class AllMessagesAgent(registry: TalkAgentRegistry) extends TalkAgent
     def pushMessageToShow(whom: String, message: String):Unit =
     {
        messagesToShow.get(whom) match {
-         case Some(messages) => messagesToShow.put(whom,(messages +: message).takeRight(MAX_HISTORY));  
-         case None => messagesToShow.put(whom, IndexedSeq(message));
+         case Some(messages) => messagesToShow.replace(whom,(messages :+ message).takeRight(MAX_HISTORY));  
+         case None => messagesToShow.putIfAbsent(whom, IndexedSeq(message));
        }
     }
 
@@ -48,7 +48,7 @@ class AllMessagesAgent(registry: TalkAgentRegistry) extends TalkAgent
     {
       messagesToShow.get(whom) match {
         case Some(messages) => val retval = messages.toList
-                               messagesToShow.put(whom,IndexedSeq())
+                               messagesToShow.replace(whom,IndexedSeq())
                                retval
         case None => List()
       }
