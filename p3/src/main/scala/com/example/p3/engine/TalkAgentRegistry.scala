@@ -8,14 +8,13 @@ trait TalkAgentRegistry {
   
   def remove(agent:TalkAgent):Unit;
   
-  def allNames:Iterable[String];
-  
-  def find(name:String):Option[TalkAgent]
-  
-  def foreach(f:(TalkAgent=>Unit)):Unit
-  
-}
+  def find(name:String):Option[TalkAgent];
 
+  def allNames:Iterable[String];
+    
+  def allAgents:Iterable[TalkAgent];
+    
+}
 
 class SimpleTalkAgentRegistry(m: ConcurrentMap[String,TalkAgent]) extends TalkAgentRegistry
 {
@@ -24,12 +23,10 @@ class SimpleTalkAgentRegistry(m: ConcurrentMap[String,TalkAgent]) extends TalkAg
   
   def remove(agent:TalkAgent) = m.remove(agent.name,agent);
  
-  def foreach(f:(TalkAgent=>Unit)) = m.foreach((x:(String,TalkAgent))=>f(x._2));
-  
-  def withFilter(f:(TalkAgent=>Boolean)) = m.values.filter(f(_));
- 
   def find(name:String) = m.get(name); 
   
   def allNames = m.keys;
+ 
+  def allAgents = m.values;
   
 }

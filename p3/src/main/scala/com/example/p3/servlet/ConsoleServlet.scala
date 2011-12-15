@@ -53,9 +53,8 @@ class ConsoleServlet extends HttpServlet
          req.getSession(true).putValue("login",login);
          req.getSession(true).putValue("token",token);
 
-         TalkEngine.initialized;
          val newAgent = new HumanAgent(login);
-         TalkEngine.add(newAgent);
+         TalkEngine.registry.add(newAgent);
        
          resp.getWriter().print("{ \"result\":true, \"auth_token\": \"%s\" }".format(token)); 
        }
@@ -77,16 +76,18 @@ class ConsoleServlet extends HttpServlet
           val login = ologin.asInstanceOf[String]
           val agentName = req.getSession().getAttribute("agentName")
           var response = if (agentName eq null) {
-                            Some(TalkEngine.chooseAgent(login, message) match {
+                            TalkEngine.chooseAgent(login, message) match {
                               case Left(x) => x
                               case Right(x) => req.getSession().setAttribute("agentName",x);
                                                x
-                            })
+                            }
                          } else {
-                            TalkEngine.process(login,agentName.asInstanceOf[String],
-                                                if (message.isEmpty()) None else Some(message))                           
+                            if (!message.isEmpty()) {
+                              TalkEngine.processSend(login,agentName.asInstanceOf[String],message); 
+                            }
+                            TalkEngine.processRequestNew(login);
                          }
-          resp.getWriter().print("{ \"message\": \""+JSONFormat.quoteString(response.getOrElse(""))+"\" }");
+          resp.getWriter().print("{ \"message\": \""+JSONFormat.quoteString(response)+"\" }");
         }
     
     

@@ -2,27 +2,19 @@ package com.example.p3.engine.agents
 
 import com.example.p3.engine._;
 
-class HumanAgent(val name:String) extends TalkAgent
+class HumanAgent(val name:String) extends TalkAgent with OutputQueue
 {
 
-    def  answer(askingName: String, optMessage:Option[String]) : Option[String] =
-    {
-      if (typedSentences.isEmpty) {
-         None;
-      } else {
-        val retval = Some(typedSentences.mkString("\n"));
-        typedSentences = Nil;
-        retval;
-      }
+    def  takeMessage(senderName: String, message: String): Unit = {
+      // do nothing: all messages are deliver to human vie reading from screen by eyes 
     }
     
-    override def isHuman = true;
+    override def isParticipateInAll = true;
     
-    override def addSentence(message:String): Unit =
+    override def recordOwnMessage(receiverName: String, message: String)
     {
-      typedSentences = message::typedSentences ;
+      pushMessageToShow(receiverName, message)
     }
 
-    var typedSentences:List[String] = List();
     
 }

@@ -7,20 +7,20 @@ import scala.collection.JavaConversions._;
 
 import agents._;
 
-object TalkEngine extends SimpleTalkAgentRegistry(
-                             new JavaConcurrentHashMap[String,TalkAgent]()
-                          )
+object TalkEngine extends TalkAgentRegistryProvider
                        with LoggingMessageProcessor 
                        with LogbackLogged
 {
 
-     lazy val initialized: Boolean =
-     {  
-      add(Elize);
-      add(YesSir);
-      add(new AllMessagesAgent(this))
+     lazy val registry: TalkAgentRegistry = 
+     {
+      val retval = new SimpleTalkAgentRegistry(Util.newConcurrentHashMap[String,TalkAgent]);
+      retval.add(Elize)
+      retval.add(YesSir);
+      retval.add(SysAgent)
+      retval.add(new AllMessagesAgent(retval))
       log("TalkEngine:Initialization finished");
-      true;
+      retval;
      }
      
      override val logger = LoggerFactory.getLogger(this.getClass);
