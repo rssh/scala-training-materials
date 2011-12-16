@@ -2,7 +2,7 @@
  <display-name> talk engine </display-name>
  <servlet>
    <servlet-name>Console</servlet-name>
-   <servlet-class>com.example.p2.servlet.ConsoleServlet</servlet-class>
+   <servlet-class>com.example.p3.servlet.ConsoleServlet</servlet-class>
  </servlet>
  <servlet-mapping>
    <servlet-name>Console</servlet-name>
