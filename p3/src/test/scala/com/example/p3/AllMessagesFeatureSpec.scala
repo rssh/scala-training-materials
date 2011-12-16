@@ -41,7 +41,27 @@ class AllMessagesFeatureSpec extends FeatureSpec
   }
 
   feature("Direct talks does not reflects in all ") {
-       scenario("x talk with elize") (pending)
+       scenario("x talk with elize") {
+         given("create user x, y")
+         val x = new HumanAgent("x");
+         val y = new HumanAgent("y");
+         TalkEngine.registry.add( x );
+         TalkEngine.registry.add( y );
+         val all = TalkEngine.registry.find("all").get;
+         //val xDrop = all.giveMessageFor()
+         when("user send message to elize")
+         val testMessage = "elize-test-message"
+         TalkEngine.processSend("x","elize",testMessage);  
+         then("elize answer soething")
+         val elize = TalkEngine.registry.find("elize").get
+         val xm = elize.giveMessageFor("x");
+         assert( xm!=None )
+         and("we have no this messages in all for x y")
+         val xmAll = all.giveMessageFor("x");
+         assert( xmAll.isEmpty )
+         val ymAll = all.giveMessageFor("y");
+         assert( ymAll.isEmpty );
+       }
   }
 
 }
