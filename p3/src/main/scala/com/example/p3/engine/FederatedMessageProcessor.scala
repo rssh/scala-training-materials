@@ -27,6 +27,7 @@ trait FederatedMessageProcessor {
   }
   
   def takeNewMessages(requestorName:String): Iterable[(String,String)] = {
+    
       //var retval: List[(String,String)] = Nil;
       //for(agent<-registry.allAgents; message <- agent.giveMessageFor(requestorName)) {
       //    retval = (agent.name, message) :: retval ;
@@ -38,11 +39,13 @@ trait FederatedMessageProcessor {
           message <- agent.giveMessageFor(requestorName)) yield 
             (agent.name, message)
       
+      //registry.allAgents.flatMap(agent => agent.giveMessagessFor(requestorName) ).flatMap((agent.name,_))      
+            
   
     
       //registry.allAgents foldRight(Nil)(
       //           (agent,l)=>(agent.name,agent.giveMessageFor(requestorName))::l 
-      //
+      
       
   }
   
