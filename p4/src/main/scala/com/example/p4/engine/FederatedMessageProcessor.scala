@@ -9,6 +9,7 @@ trait FederatedMessageProcessor {
   def processSend(senderName: String, receiverName:String, message: String):Unit =
   { 
     
+    
     for(sender <- registry.find(senderName)) {
         sender.recordOwnMessage(senderName,message);
     }

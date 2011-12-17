@@ -75,27 +75,7 @@ class ConsoleServlet extends HttpServlet
         } else {
           val login = ologin.asInstanceOf[String]
           //val agentName = req.getSession().getAttribute("agentName")
-          val response = TalkEngine.registry.find(login) match {
-            case Some(me) => 
-              if (me.isInstanceOf[InterlocutorKeeper]) {
-                val ilme = me.asInstanceOf[InterlocutorKeeper]
-                if (ilme.interlocutorName.isEmpty) {
-                  TalkEngine.chooseAgent(login, message) match {
-                     case Left(x) => x
-                     case Right(x) => ilme.interlocutorName=Some(x)
-                                      "You connected to "+x
-                  }
-                } else {
-                  if (!message.isEmpty()) {
-                    TalkEngine.processSend(login,ilme.interlocutorName.get,message);
-                  } 
-                  TalkEngine.processRequestNew(login)
-                }     
-              } else {
-                "login is not intedent to use from this interface"
-              }
-            case None =>  "login not found in registry, reconnect please"
-          }
+          val response = TalkEngine.dispatch(login,message);
           resp.getWriter().print("{ \"message\": \""+JSONFormat.quoteString(response)+"\" }");
         }
     

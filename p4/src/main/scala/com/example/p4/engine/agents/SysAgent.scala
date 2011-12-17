@@ -10,7 +10,7 @@ class SysAgent(registry: TalkAgentRegistry) extends FunAnswerAgent
   def answer(senderName: String, message:String): String =
   {
     message match {
-      case ":bye" => registry.find("senderName") match {
+      case ":bye" => registry.find(senderName) match {
                        case Some(agent) => 
                           if (agent.isInstanceOf[InterlocutorKeeper]) {
                             agent.asInstanceOf[InterlocutorKeeper].interlocutorName=None;

@@ -11,11 +11,18 @@ object ForUnoviousness
     val l1 = for(e <- l) yield { i=i+1; e }
     System.out.println("i="+i);
 
-    val s = Stream(1,2,3);
+    val s = (1 to 100).toStream
     i = 0;
-    val s1 = for(e <- s) yield { i=i+1; e }
+    val s1 = for(e <- s) yield { i=i+1; e+1 }
     System.out.println("i="+i);
+  
 
+    System.out.println("s1="+s1(5));
+    System.out.println("i="+i);
+    
   }
+  
+  //map(h::t) = map(h)::map(t)
+  // map(lcons(h,t)) = lcons(map(h),map(t))
 
 }

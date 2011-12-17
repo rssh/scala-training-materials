@@ -37,6 +37,7 @@ class AlarmActor extends Actor {
          alarms.put(name, newRecords);
        }
      }
+    // alarms.put("1",AlarmRecord(0L,"11"))
   }
     
   val alarms = TMap[String,List[AlarmRecord]]();

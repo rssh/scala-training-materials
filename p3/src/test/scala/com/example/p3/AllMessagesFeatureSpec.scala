@@ -59,7 +59,7 @@ class AllMessagesFeatureSpec extends FeatureSpec
          and("we have no this messages in all for x y")
          val xmAll = all.giveMessageFor("x");
          assert( xmAll.isEmpty )
-         val ymAll = all.giveMessageFor("y");
+         val ymAll = xall.giveMessageFor("y");
          assert( ymAll.isEmpty );
        }
   }

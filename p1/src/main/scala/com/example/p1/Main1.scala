@@ -7,7 +7,7 @@ object Main1 extends DelayedInit
 
   def delayedInit(x: => Unit) {
     Console.println("receive x");
-    fun=Some(()=>x);
+    fun=Some( ()=>x  );
   }
 
 

@@ -33,10 +33,15 @@ class ConsoleServlet extends HttpServlet
   }
   
   def doLogin(req:HttpServletRequest, resp:HttpServletResponse): Unit = {
-       val login = req.getParameter("login")
-       if (login eq null) {
-         throw new ServletException("login parameter is missing");
-       }     
+       //val login = req.getParameter("login")
+       //if (login eq null) {
+       //  throw new ServletException("login parameter is missing");
+       //}
+       val login = Option(req.getParameter("login")) match {
+         case Some(x) => x
+         case None => throw new ServletException("login parameter is missing");
+       }
+    
        val password = req.getParameter("password");
        if (password eq null) {
          throw new ServletException("password parameter is missing");

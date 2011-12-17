@@ -10,6 +10,7 @@ trait TalkAgent {
   
   def  name:String;
 
+  //def  answer(askingName: String, message: String) :String
   def  answer(askingName: String, optMessage:Option[String]) :Option[String];
   
   def  isHuman: Boolean = false;

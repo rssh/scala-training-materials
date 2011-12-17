@@ -26,8 +26,9 @@ trait FederatedMessageProcessor {
     takeNewMessages(requestorName).map( _._2 ).mkString("\n"); 
   }
   
-  def takeNewMessages(requestorName:String): Iterable[(String,String)] = {
+  def takeNewMessages(requestorName:String): Iterable[Tuple2[String,String]] = {
     
+      
       //var retval: List[(String,String)] = Nil;
       //for(agent<-registry.allAgents; message <- agent.giveMessageFor(requestorName)) {
       //    retval = (agent.name, message) :: retval ;
