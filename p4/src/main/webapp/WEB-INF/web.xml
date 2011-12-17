@@ -1,0 +1,11 @@
+<web-app>
+ <display-name> talk engine </display-name>
+ <servlet>
+   <servlet-name>Console</servlet-name>
+   <servlet-class>com.example.p4.servlet.ConsoleServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+   <servlet-name>Console</servlet-name>
+   <url-pattern>/console/*</url-pattern>
+ </servlet-mapping>
+</web-app>
