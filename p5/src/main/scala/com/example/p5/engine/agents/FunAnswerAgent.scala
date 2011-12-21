@@ -2,7 +2,9 @@ package com.example.p5.engine.agents
 
 import com.example.p5.engine._;
 
-trait FunAnswerAgent extends TalkAgent with OutputQueue
+trait FunAnswerAgent extends TalkAgent 
+                           //with OutputQueue
+                           with DBMessageQueue
 {
   
   def answer(senderName: String, message:String): String;

@@ -22,6 +22,8 @@ class FunctionParamsExample {
     Console.println(sb.toString);    
   }
   
+  
+  
   def byNameLazy(x: => String, nCalls: Int) 
   {
     lazy val lx = x;

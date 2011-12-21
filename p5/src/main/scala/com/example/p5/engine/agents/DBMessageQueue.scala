@@ -10,7 +10,7 @@ import org.squeryl.PrimitiveTypeMode._;
 
 
 
-class DBMessageQueue {
+trait DBMessageQueue {
 
 	this: TalkAgent =>
 		
@@ -24,7 +24,7 @@ class DBMessageQueue {
     {
         val now = new java.sql.Timestamp(System.currentTimeMillis());
     	inTransaction {
-    		val tm = new TalkMessage(id=0L, from = name, to = whom, message = message, when=now)
+    		val tm = new TalkMessage(id=0L, xfrom = name, xto = whom, message = message, when=now)
     		val m = messages.insert(tm);
     	}
     }
@@ -33,11 +33,11 @@ class DBMessageQueue {
     {
       val now = new java.sql.Timestamp(System.currentTimeMillis()); 	
       inTransaction {
-      	val retval = from(messages,userProfiles)((m,u)=>where((m.from===name)
+      	val retval = from(messages,userProfiles)((m,u)=>where((m.xfrom===name)
       			                                 and
-      			                                 (m.to===whom)
+      			                                 (m.xto===whom)
       			                                 and
-      			                                  (u.id===m.to)
+      			                                  (u.id===m.xto)
       			                                 and
       			                                  (m.when > u.lastUpdate)
       	                                         ) select(m.message)

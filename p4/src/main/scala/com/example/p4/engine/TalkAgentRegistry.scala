@@ -8,7 +8,7 @@ trait TalkAgentRegistry {
   
   def remove(agent:TalkAgent):Unit;
   
-  def find(name:String):Option[TalkAgent];
+  def find(login :TalkEngine#NameType ):Option[TalkAgent];
 
   def allNames:Iterable[String];
     

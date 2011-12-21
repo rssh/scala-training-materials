@@ -8,7 +8,9 @@ import com.example.p5.engine._;
 case class AlarmRecord(val when: Long, val message:String);
 
 
-object AlarmAgent extends TalkAgent with OutputQueue
+object AlarmAgent extends TalkAgent 
+                              //with OutputQueue
+                              with DBMessageQueue
 {
   
   def name = "alarm";

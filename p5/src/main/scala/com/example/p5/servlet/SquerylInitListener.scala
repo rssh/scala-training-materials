@@ -18,7 +18,7 @@ class SquerylInitListener extends ServletContextListener
   {
      Class.forName("org.h2.Driver");
      val boneCpConfig = new BoneCPConfig();
-     boneCpConfig.setJdbcUrl("jdbc:h2:~/test");
+     boneCpConfig.setJdbcUrl("jdbc:h2:test");
      boneCpConfig.setUsername("sa");
      boneCpConfig.setPassword("");
      connectionPool = new BoneCP(boneCpConfig);

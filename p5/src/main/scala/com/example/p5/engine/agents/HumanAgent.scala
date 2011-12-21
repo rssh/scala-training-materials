@@ -2,8 +2,10 @@ package com.example.p5.engine.agents
 
 import com.example.p5.engine._;
 
-class HumanAgent(val name:String) extends TalkAgent with OutputQueue 
-                                                    with InterlocutorKeeper
+class HumanAgent(val name:String) extends TalkAgent 
+                                       //with OutputQueue
+                                       with DBMessageQueue
+                                       with InterlocutorKeeper
 {
 
     def  takeMessage(senderName: String, message: String): Unit = {

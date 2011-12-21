@@ -7,9 +7,16 @@ import scala.collection.JavaConversions._;
 
 import agents._;
 
+class TalkEngine
+{
+	type NameType = String;	
+}
+
 object TalkEngine extends TalkAgentRegistryProvider
 	with LoggingMessageProcessor
 	with LogbackLogged {
+	
+	
 
 	lazy val registry: TalkAgentRegistry =
 		{
@@ -22,7 +29,7 @@ object TalkEngine extends TalkAgentRegistryProvider
 			retval;
 		}
 
-	def dispatch(login: String, message: String): String =
+	def dispatch(login: NameType, message: String): String =
 		{
 			TalkEngine.registry.find(login) match {
 				case Some(me) =>

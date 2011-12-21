@@ -3,7 +3,9 @@ package com.example.p5.engine.agents
 import com.example.p5.engine._
 
 
-class AllMessagesAgent(registry: TalkAgentRegistry) extends TalkAgent with OutputQueue
+class AllMessagesAgent(registry: TalkAgentRegistry) extends TalkAgent 
+                                                      //with OutputQueue
+                                                      with DBMessageQueue
 {
   
     def name="all";

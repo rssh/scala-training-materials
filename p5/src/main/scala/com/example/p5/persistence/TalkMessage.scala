@@ -5,8 +5,8 @@ import java.sql.Timestamp
 
 class TalkMessage( 
 		            val id: Long,
-		            val from:  String,
-		            val to:  String,
+		            val xfrom:  String,
+		            val xto:  String,
 		            val message: String,
 		            val when: Timestamp)
 		         extends KeyedEntity[Long]   
