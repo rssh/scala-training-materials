@@ -1,0 +1,15 @@
+<web-app>
+ <display-name> talk engine </display-name>
+ <servlet>
+   <servlet-name>Console</servlet-name>
+   <servlet-class>com.example.p5.servlet.ConsoleServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+   <servlet-name>Console</servlet-name>
+   <url-pattern>/console/*</url-pattern>
+ </servlet-mapping>
+ <listener>
+    <listener-class>com.example.p5.servlet.AkkaBootListener</listener-class>
+  </listener>
+
+</web-app>
