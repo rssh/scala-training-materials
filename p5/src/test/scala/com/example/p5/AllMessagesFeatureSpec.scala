@@ -9,7 +9,12 @@ import org.scalatest.matchers.ShouldMatchers;
 class AllMessagesFeatureSpec extends FeatureSpec
                                with GivenWhenThen
                                with ShouldMatchers
+                               with BeforeAndAfter
 {
+ 
+  before {
+    Squeryl.init;
+  }
 
   feature("Messages to all are passed to all humans ") {
 

@@ -10,7 +10,12 @@ import org.scalatest.matchers.ShouldMatchers;
 class PrivateTalkFeatureSpec extends FeatureSpec
                                with GivenWhenThen
                                with ShouldMatchers
+                               with BeforeAndAfter
 {
+
+        before {
+           Squeryl.init;
+        }
 
 	feature("private talk") {
 		scenario(" user A and B try to talk with each other " ) {

@@ -11,5 +11,8 @@
  <listener>
     <listener-class>com.example.p5.servlet.AkkaBootListener</listener-class>
   </listener>
+ <listener>
+    <listener-class>com.example.p5.servlet.SquerylInitListener</listener-class>
+ </listener>
 
 </web-app>

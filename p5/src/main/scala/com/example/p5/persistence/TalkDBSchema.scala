@@ -26,7 +26,8 @@ object TalkDBSchema extends Schema
 	def main(args:Array[String]):Unit =
 	{
      System.out.println("args are:"+args.toList);
-     val toCreate = (args.length > 0 && args(0).equals("--create")) 	
+     val toCreate = (args.length > 0 && args(0).equals("--create"))
+     val toDrop = (args.length > 0 && args(0).equals("--drop"))
      Class.forName("org.h2.Driver");
      SessionFactory.concreteFactory =
        Some(()=>
