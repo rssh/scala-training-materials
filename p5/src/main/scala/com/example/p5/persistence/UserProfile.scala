@@ -31,19 +31,40 @@ object UserProfile
   def checkLogin(login:String, password:String):Boolean =
   {
     inTransaction {
-    	from(userProfiles)(u => where(u.id===login)select(u)).headOption match {
-    		case Some(u) => u.password == password
+    	Session.currentSession.setLogger(
+    			  System.out.println(_)
+    			);
+    	from(userProfiles)(u => where(u.id===login)select(u.password)).headOption match {
+    		case Some(p) => p == password
     		case None => 
     			if (password == passwordForNewUsers()) {
     				// create login.
     				val now = new Timestamp(System.currentTimeMillis());
-    				userProfiles.insert(new UserProfile(login,None,None,None,now));
+    				userProfiles.insert(new UserProfile(id=login,
+    						                            password=Some(passwordForNewUsers()),
+    						                            info=None,
+    						                            lastInterlocutor=None,
+    						                            lastUpdate=now));
     				true;
     			} else {
     				false
     			}
     	}
     }	
+  }
+  
+  def getUser(name:String):Option[UserProfile]=
+  {
+  	inTransaction {
+  		from(listAllUsers)(u => where(u.id===name) select(u) ).headOption
+  	}
+  }
+  
+  def listAllUsers:Queryable[UserProfile]=
+  {
+  	inTransaction {
+  		from(userProfiles)(u=>select(u))
+  	}
   }
   
   def passwordForNewUsers():String = 
