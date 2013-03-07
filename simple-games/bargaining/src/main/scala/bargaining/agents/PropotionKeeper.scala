@@ -17,7 +17,9 @@ class ProportionKeeper(p: Double) extends Agent
   def accept(agent: Agent, d: Division): Boolean =
   {
     val minY = ((d.forMe+d.forYou)*(1-p)).toInt
-    return d.forYou >= minY
+    d match {
+      case Division(x,y) => y > minY
+    }
   }
   
 }

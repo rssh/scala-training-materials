@@ -12,7 +12,7 @@ class RandomAgent extends Agent
   
   def propose(agent: Agent, sum: Int): Division =
   {
-    val x = random.nextInt(sum)
+    val x = abs(random.nextInt(sum))
     val me =  max(x,sum-x)
     Division(me, sum-me)
   }

@@ -10,16 +10,17 @@ class GameRunner(agents: Seq[Agent], randomSeed: Int = 1)
      def incrBalance(x:Int) = copy(balance = balance + x)
   }
 
-  var records = (agents map (AgentRecord(_,0)) ).toArray
+  var records = (agents map (x => AgentRecord(x,0)) ).toArray
+  
   val random = new java.util.Random()
   random.setSeed(randomSeed)
 
-  def playRandomGames(nGames: Int, sum: Int): Unit =
+  def playRandomGames(nGames: Int, sum: Int = 10): Unit =
   {
    for( i <- 1 to nGames) {
      val xi = abs(random.nextInt) % records.length 
      val yi = abs(random.nextInt) % records.length 
-     System.err.println("xi="+xi+",yi="+yi+", length="+records.length)
+     //System.err.println("xi="+xi+",yi="+yi+", length="+records.length)
      val d = doOnePlay(records(xi),records(yi), sum)
      records(xi) = records(xi) incrBalance d.forMe
      records(yi) = records(yi) incrBalance d.forYou
@@ -27,7 +28,9 @@ class GameRunner(agents: Seq[Agent], randomSeed: Int = 1)
   }
 
   def printState =
-      Console.println(records.toSeq)
+      Console.println(
+          (records.toSeq map (x => (x.agent.name, x.balance))) sortBy (- _._2)
+       )
 
   def  doOnePlay(x: AgentRecord, y: AgentRecord, sum: Int) : Division =
   {
@@ -37,7 +40,6 @@ class GameRunner(agents: Seq[Agent], randomSeed: Int = 1)
     else 
        Division(0,0)    
   }
-
 
 
 }
