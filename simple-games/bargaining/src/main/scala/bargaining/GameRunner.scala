@@ -19,8 +19,7 @@ class GameRunner(agents: Seq[Agent], randomSeed: Int = 1)
   {
    for( i <- 1 to nGames) {
      val xi = abs(random.nextInt) % records.length 
-     val yi = abs(random.nextInt) % records.length 
-     //System.err.println("xi="+xi+",yi="+yi+", length="+records.length)
+     val yi = (xi + 1 + abs(random.nextInt) % (records.length-1)) % records.length
      val d = doOnePlay(records(xi),records(yi), sum)
      records(xi) = records(xi) incrBalance d.forMe
      records(yi) = records(yi) incrBalance d.forYou
