@@ -10,8 +10,12 @@ object MyBuild extends Build {
                                      scalabuffSettings ++
                                      Seq(scalaVersion := "2.10.0",
                                          name := "protobuf-example",
-                                         version := "0.1"
-                                        )
+                                         version := "0.1",
+                                         libraryDependencies := Seq(
+                                             "net.sandrogrzicic" %% "scalabuff-runtime" % "1.1.1",
+                                             "net.databinder.dispatch" %% "dispatch-core" % "0.10.0"
+                                         )
+                                     )
                          ).configs(ScalaBuff) 
 
 }

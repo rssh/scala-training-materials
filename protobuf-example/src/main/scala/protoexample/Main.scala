@@ -1,6 +1,19 @@
 package protoexample
 
 import org.freeradius._
+import scala.xml._
+
+
+trait XMLWriter[T] {
+  def toXML(t: T): NodeSeq
+}
+
+
+
+case class Point2(val x: Int, val y: Int)
+
+case class Point3(val x: Int, val y: Int, val z: Int)
+
 
 
 object Main
@@ -12,6 +25,7 @@ object Main
    
    
  }
+ 
  
  
  def generatePacket(): RequestData =
