@@ -8,5 +8,14 @@ GET     /                           controllers.Application.index
 # Hello action
 GET     /hello                      controllers.Application.sayHello
 
+# Persin service
+GET     /person			            controllers.PersonController.list()
+GET     /person/:id                 controllers.PersonController.get(id:String)
+POST    /person                     controllers.PersonController.create
+PUT     /person/:id                 controllers.PersonController.update(id:String)
+DELETE  /person/:id                 controllers.PersonController.delete(id:String)
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
