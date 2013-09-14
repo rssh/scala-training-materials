@@ -25,12 +25,11 @@ object X
     {
      val rtree = q"""
      {
-      class H0
-      {
+      class H0 {
         def tie = new Tie;
         def reading[A](ch: Channel[A]) = macro X.readingImpl[H0,A]
       }
-      new H0 {}
+      new H0 { }
      }
      """
      c.Expr[Any](rtree)
@@ -46,11 +45,10 @@ object X
     var rtree = q"""
     {
      class  H1 {
-       def tie:Tie = $tie
        def channel = $ch
        //def apply(f: A => Unit) = macro X.applyReadFun[this.type,A]
      }
-     new H1
+     new H1 { }
     } 
     """
     Console.println("rtree = " + rtree)
