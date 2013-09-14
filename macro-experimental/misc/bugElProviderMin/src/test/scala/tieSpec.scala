@@ -11,4 +11,11 @@ class TieSpec extends FlatSpec  {
     val tie = makeTie
   }
 
+  "Tie" should "be able to do reading macro" in {
+    val tie = makeTie
+    val ch = new Channel[Int] {}
+    tie.reading(ch)
+  }
+
+
 }

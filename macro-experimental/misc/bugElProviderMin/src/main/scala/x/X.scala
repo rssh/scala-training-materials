@@ -30,10 +30,10 @@ object X
         def tie = new Tie;
         def reading[A](ch: Channel[A]) = macro X.readingImpl[H0,A]
       }
-      new H0
+      new H0 {}
      }
      """
-     c.Expr(rtree)
+     c.Expr[Any](rtree)
     }
   }
 
@@ -54,7 +54,7 @@ object X
     } 
     """
     Console.println("rtree = " + rtree)
-    reify(rtree)
+    c.Expr[Any](rtree)
   }
      
 
