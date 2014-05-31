@@ -3,7 +3,7 @@ name:="p5"
 
 version:="0.5"
 
-scalaVersion:="2.9.1"
+scalaVersion:="2.9.2"
 
 sbtVersion:="0.11.2"
 
@@ -25,7 +25,7 @@ libraryDependencies += "org.scala-tools" %% "scala-stm" % "0.4"
 
 libraryDependencies += "org.scala-tools.testing" %% "scalacheck" % "1.9"
 
-libraryDependencies += "org.squeryl" %% "squeryl" % "0.9.5-SNAPSHOT"
+libraryDependencies += "org.squeryl" %% "squeryl" % "0.9.6-SNAPSHOT"
 
 libraryDependencies += "com.h2database" % "h2" % "1.2.127"
 
